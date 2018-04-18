@@ -1,0 +1,20 @@
+.sell_table,.buy_table{
+	width: 100%;
+}
+.sell_table th,.buy_table th{
+	padding: 4px;
+	text-align: center;
+	font-size: 11px;
+	color:#5d5d5d;;
+}
+.sell_table td,.buy_table td{
+	padding: 4px;
+	text-align: center;
+	font-size: 10px;
+}
+.dataTables_length{
+	display: none;
+}
+.dataTables_filter input[type='search']{
+	height: 25px;
+}

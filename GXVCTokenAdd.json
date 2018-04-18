@@ -1,0 +1,4 @@
+{
+	"tokenAddress":"0xbfa3e97e3e9d75a4c4bbaeab9c6f4cc7fff66fd7",
+	"tokenAbi":[{"constant": false, "inputs": [{"name": "_from", "type": "address"}, {"name": "_value", "type": "uint256"}, {"name": "_data", "type": "bytes"} ], "name": "tokenFallback", "outputs": [], "payable": false, "stateMutability": "nonpayable", "type": "function"} ]
+}
