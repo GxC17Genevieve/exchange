@@ -160,9 +160,6 @@ contract GenevExch is SafeMath {
   mapping (address => mapping (bytes32 => bool)) public orders; //mapping of user accounts to mapping of order hashes to booleans (true = submitted by user, equivalent to offchain signature)
   mapping (address => mapping (bytes32 => uint)) public orderFills; //mapping of user accounts to mapping of order hashes to uints (amount of order that has been filled)
 
-  mapping (address => bool) public blackERC20;
-  mapping (address => bool) public blackERC223;
-
   event Order(address tokenGet, uint amountGet, address tokenGive, uint amountGive, uint expires, uint nonce, address user);
   event Cancel(address tokenGet, uint amountGet, address tokenGive, uint amountGive, uint expires, uint nonce, address user, uint8 v, bytes32 r, bytes32 s);
   event Trade(address tokenGet, uint amountGet, address tokenGive, uint amountGive, address get, address give);
@@ -171,13 +168,6 @@ contract GenevExch is SafeMath {
   event Withdraw(address token, address user, uint amount, uint balance);
   event Message(string message);
   
-  modifier onlyAdmin() {
-    require(msg.sender==admin);
-    _;
-  }
-
-  // Constructor
-
   function GenevExch(address admin_, address feeAccount_, address accountLevelsAddr_, uint feeMake_, uint feeTake_, uint feeRebate_) {
     admin = admin_;
     feeAccount = feeAccount_;
@@ -191,63 +181,48 @@ contract GenevExch is SafeMath {
     throw;
   }
 
-  function changeAdmin(address admin_) onlyAdmin {
+  function tokenFallback(address _from, uint _value, bytes _data){
+    //tokens[msg.sender][_from] = safeAdd(tokens[msg.sender][_from], _value);
+    //Deposit(msg.sender, _from, _value, tokens[msg.sender][_from]);
+   }
+
+  function changeAdmin(address admin_) {
+    if (msg.sender != admin) throw;
     admin = admin_;
   }
 
-  function changeAccountLevelsAddr(address accountLevelsAddr_) onlyAdmin {
+  function changeAccountLevelsAddr(address accountLevelsAddr_) {
+    if (msg.sender != admin) throw;
     accountLevelsAddr = accountLevelsAddr_;
   }
 
-  function changeFeeAccount(address feeAccount_) onlyAdmin {
+  function changeFeeAccount(address feeAccount_) {
+    if (msg.sender != admin) throw;
     feeAccount = feeAccount_;
   }
 
-  function changeFeeMake(uint feeMake_) onlyAdmin {
+  function changeFeeMake(uint feeMake_) {
+    if (msg.sender != admin) throw;
     if (feeMake_ > feeMake) throw;
     feeMake = feeMake_;
   }
 
-  function changeFeeTake(uint feeTake_) onlyAdmin {
+  function changeFeeTake(uint feeTake_) {
+    if (msg.sender != admin) throw;
     if (feeTake_ > feeTake || feeTake_ < feeRebate) throw;
     feeTake = feeTake_;
   }
 
-  function changeFeeRebate(uint feeRebate_) onlyAdmin {
+  function changeFeeRebate(uint feeRebate_) {
+    if (msg.sender != admin) throw;
     if (feeRebate_ < feeRebate || feeRebate_ > feeTake) throw;
     feeRebate = feeRebate_;
   }
 
-  // Blacklist ERC20 or ERC223 tokens
-
-  function blackListERC20(address _token) onlyAdmin {
-    blackERC20[_token] = true;
-  }
-
-  function whiteListERC20(address _token) onlyAdmin {
-   blackERC20[_token] = false;
-  }
-  function blackListERC223(address _token) onlyAdmin {
-    blackERC223[_token] = true;
-  }
-
-  function whiteListERC223(address _token) onlyAdmin {
-   blackERC223[_token] = false;
-  }
-
-  // 
-
-  function deposit() payable { // Deposit Ethers
+  function deposit() payable {
     tokens[0][msg.sender] = safeAdd(tokens[0][msg.sender], msg.value);
     Deposit(0, msg.sender, msg.value, tokens[0][msg.sender]);
   }
-
-  function tokenFallback(address _from, uint _value, bytes _data) { // Deposit ERC223 tokens
-    if (_value==0) throw;
-    if (blackERC223[msg.sender]) throw;
-    tokens[msg.sender][_from] = safeAdd(tokens[msg.sender][_from], _value);
-    Deposit(msg.sender, _from, _value, tokens[msg.sender][_from]);
-   }
 
   function withdraw(uint amount) {
     if (tokens[0][msg.sender] < amount) throw;
@@ -256,10 +231,9 @@ contract GenevExch is SafeMath {
     Withdraw(0, msg.sender, amount, tokens[0][msg.sender]);
   }
 
-  function depositToken(address token, uint amount) { // Deposit ERC20 tokens
+  function depositToken(address token, uint amount) { // Not used
     //remember to call Token(address).approve(this, amount) or this contract will not be able to do the transfer on your behalf.
     if (token==0) throw;
-    if (blackERC20[token]) throw;
     if (!Token(token).transferFrom(msg.sender, this, amount)) throw;
     tokens[token][msg.sender] = safeAdd(tokens[token][msg.sender], amount);
     Deposit(token, msg.sender, amount, tokens[token][msg.sender]);

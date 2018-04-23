@@ -94,14 +94,14 @@ _id("sell_amount").onkeyup = function(){
 web3.version.getNetwork((err,netId) => {
 
   if ( netId == 4 ) { // Rinkeby
-    window.GXVCTokenAdd = '0xbfa3e97e3e9d75a4c4bbaeab9c6f4cc7fff66fd7'; // Rinkeby 
-    var ExchAddress = '0x72B804d47A607E64D977276b0FAFF4d13062e8Ab'; // Rinkeby 
+    window.GXVCTokenAdd = '0x5b6851181d79DdB6980AD55B2aFe730e95A0ECe4'; // Rinkeby 
+    var ExchAddress = '0x3ec9deF1ebCCA9B6365783D4C2E1C267c9B65b92'; // Rinkeby 
     _id('contractAddress').href = "https://rinkeby.etherscan.io/address/" + ExchAddress;
     }
 
   if ( netId == 1 ) { // Mainnet
     window.GXVCTokenAdd = '0x22F0AF8D78851b72EE799e05F54A77001586B18A';
-    var ExchAddress = '0x47133f6227292e2f0ecb0b9d2e838f454aed3dc1';
+    var ExchAddress = '0x3ec9deF1ebCCA9B6365783D4C2E1C267c9B65b92';
     _id('contractAddress').href = "https://etherscan.io/address/" + ExchAddress;
     }
 

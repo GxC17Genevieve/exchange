@@ -205,16 +205,16 @@ section {
 .stock-graph h2 {
 	padding-left: 10px;
 }
-.gxvc-stock {
+.tokenOne-stock {
 	background: #313131;
 	border-radius: 4px;
 }
-.gxvc-stock {
+.tokenOne-stock {
 	float: left;
 	width: 100%;
 	padding: 10px 4px;
 }
-.gxvc-stock h2 {
+.tokenOne-stock h2 {
 	float: left;
 	width: 100%;
 }
@@ -227,36 +227,36 @@ section {
 	width: 47px;
 	border: 0px !important;
 }
-.gxvc-stock .main-title span {
+.tokenOne-stock .main-title span {
 	font-size: 20px;
 	margin-left: 5px;
 	float: left;
 }
-.gxvc-tabel, .gxvc-tabel table {
+.tokenOne-tabel, .tokenOne-tabel table {
 	float: left;
 	width: 100%;
 }
-.gxvc-tabel tr {
+.tokenOne-tabel tr {
 	border-top: 1px solid #3f3f3f;
 	padding: 7px 5px;
 	float: left;
 	width: 100%;
 }
-.gxvc-tabel tr:first-child {
+.tokenOne-tabel tr:first-child {
 	border: 0px;
 }
-.gxvc-tabel th {
+.tokenOne-tabel th {
 	float: left;
-	width: 60%;
+	width: 40%;
 	color: #5d5d5d;
 	font-size: 20px;
 	font-weight: 500;
 	font-family: 'Montserrat', sans-serif;
 }
-.gxvc-tabel td {
+.tokenOne-tabel td {
 	float: left;
 	color: #fff;
-	width: 40%;
+	width: auto;
 	font-family: 'Montserrat', sans-serif;
 	font-weight: 300;
 	text-transform: uppercase;
@@ -404,6 +404,14 @@ th img {
 	text-align: right;
 	width: 100%;
 }
+.sub-title span:hover{
+	cursor:pointer;
+	color:#a6833f;
+}
+.sub-title{
+	cursor:pointer;
+	color:#a6833f !important;
+}
 .card label {
 	color: #8a794b;
 	font-size: 13px;
@@ -483,4 +491,69 @@ th img {
 }
 .button .light-btn:hover {
 	background: rgba(169,132,62,.8);
+}
+.orders_table{
+	width: 100%;
+	background: white;
+	color: black;
+}
+.orders_table thead{
+	background: grey;
+	color:white;
+}
+.buy{
+	color:green;
+	font-weight: bold;
+}
+.sell{
+	color:blue;
+	font-weight: bold;
+}
+.orders_table td,.orders_table th{
+	text-align: center;
+}
+.font10px{
+	font-size: 10px;
+}
+#tokentwo_bal_buy,#tokenOne_bal_sell:hover{
+	cursor: pointer;
+}
+.orderBookTable thead{
+	background-color:white;
+}
+.orderBookTable tr:hover{
+	background-color:#eee;
+	color:black;
+}
+.token_div{
+	border:1px solid grey;
+	background-color: white;
+	padding:10px;
+}
+.pair_symbol,.pair_price,.pair_volume,.pair_change{
+	font-size: 10px;
+}
+.pair_price,.pair_volume,.pair_change{
+	font-size: 8px;
+}
+.pair_img{
+	line-height: 200%;
+}
+.pair_selected{
+	background-color: #676060;
+	color:white;
+	border:1px solid white;
+
+}
+.token_div:hover{
+	cursor:pointer;
+}
+.erase{
+	all: initial;
+  * {
+    all: unset;
+  }
+}
+.currentTokenOne,.currentTokenTwo{
+	display: inline-block;
 }
